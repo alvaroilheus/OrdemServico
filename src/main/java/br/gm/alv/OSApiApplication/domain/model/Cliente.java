@@ -6,7 +6,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import java.util.Objects;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;       
+        
+        
+        
 @Entity
 public class Cliente {
 
@@ -14,9 +19,17 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank
+    @Size(max = 60)
     private String nome;
+    
+    @NotBlank
+    @Email
+    @Size(max = 255)
     private String email;
 
+    @NotBlank
+    @Size(max = 20)
     @Column(name = "telefone")
     private String fone;
 
