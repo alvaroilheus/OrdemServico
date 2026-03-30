@@ -2,6 +2,7 @@ package br.gm.alv.OSApiApplication.api.controller;
 
 import br.gm.alv.OSApiApplication.domain.model.Cliente;
 import br.gm.alv.OSApiApplication.domain.repository.ClienteRepository;
+import br.gm.alv.OSApiApplication.domain.service.ClienteService;
 import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,9 @@ public class ClienteController {
 
     @Autowired
     private ClienteRepository clienteRepository;
+    
+    @Autowired
+    private ClienteService clienteService;
 
     // GET - listar todos
     @GetMapping("/clientes/all")
@@ -50,7 +54,7 @@ public class ClienteController {
     @PostMapping("/clientes")
     @ResponseStatus(HttpStatus.CREATED)
     public Cliente adicionar(@Valid @RequestBody Cliente cliente) {
-        return clienteRepository.save(cliente);
+        return clienteService.salvar(cliente);
     }
 
     // PUT - atualizar
@@ -60,8 +64,9 @@ public class ClienteController {
         if (!clienteRepository.existsById(clienteID)) {
             return ResponseEntity.notFound().build();
         }
+        
         cliente.setId(clienteID);
-        cliente = clienteRepository.save(cliente);
+        cliente = clienteService.salvar(cliente);
         return ResponseEntity.ok(cliente);
     }
 
@@ -71,7 +76,7 @@ public class ClienteController {
         if (!clienteRepository.existsById(clienteID)) {
             return ResponseEntity.notFound().build();
         }
-        clienteRepository.deleteById(clienteID);
+        clienteService.excluir(clienteID);
         return ResponseEntity.noContent().build();
     }
 }
