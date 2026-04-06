@@ -62,6 +62,4 @@ public class OrdemServicoController {
         return ordemServicoRepository.findByClienteId(clienteId);
     }
     
-    // Nota: O método PUT (alteração) segue a mesma lógica do ClienteController.
-    // Você pode usar o save() do repositório para atualizar.
 }
